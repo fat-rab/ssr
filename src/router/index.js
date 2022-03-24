@@ -14,6 +14,10 @@ export function createRouter() {
             {
                 path: '/test',
                 component: () => import("../views/test.vue")
+            },
+            {
+                path: '/about',
+                component: () => import("../views/about.vue")
             }
         ]
     })

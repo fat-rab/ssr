@@ -3,7 +3,6 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
-
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
@@ -12,7 +11,7 @@ module.exports = {
     : '#cheap-module-source-map', // source map 支持(记录编译后代码到原始代码的映射关系)
   output: {
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/dist/',
+    publicPath: './',
     filename: '[name].[chunkhash].js'
   },
   resolve: {

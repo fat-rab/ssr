@@ -3,12 +3,14 @@ import App from './App.vue'
 import {createStore} from './store'
 import {createRouter} from './router'
 import {sync} from 'vuex-router-sync'
-//import titleMixin from './util/title'
+
+import "./styles/index.stylus"
+import titleMixin from './util/title'
+// 混入获取标题的方法，然后在组件中暴露title函数或者属性，就可以不同页面设置不同标题
+Vue.mixin(titleMixin)
+
+
 //import * as filters from './util/filters'
-
-// mixin for handling title
-//Vue.mixin(titleMixin)
-
 // register global utility filters.
 // Object.keys(filters).forEach(key => {
 //     Vue.filter(key, filters[key])

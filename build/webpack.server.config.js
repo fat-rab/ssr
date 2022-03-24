@@ -1,11 +1,11 @@
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const base = require('./webpack.base.config')
-const nodeExternals = require('webpack-node-externals')
+const nodeExternals = require('webpack-node-externals') //排出node_modules下的一些内容
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
 
 module.exports = merge(base, {
-  // 这允许 webpack 以 Node 适用方式(Node-appropriate fashion)处理动态导入(dynamic import)，可以剔除一些未使用的node内部模块
+  // 指定运行环境，可以剔除一些未使用的node内部模块，例如fs,path等
   // 并且还会在编译 Vue 组件时，告知 `vue-loader` 输送面向服务器代码(server-oriented code)。
   target: 'node',
   devtool: '#source-map', //对 bundle renderer 提供 source map 支持
@@ -21,12 +21,12 @@ module.exports = merge(base, {
   // 外置化应用程序依赖模块，可以使服务器构建速度更快，并生成较小的 bundle 文件
   externals: nodeExternals({
     // 不要外置化 webpack 需要处理的依赖模块。
-    // 将css添加入白名单，是因为从以来模块倒入的css还应该有webpack处理
+    // 将css添加入白名单，是因为从依赖模块倒入的css还应该有webpack处理
     whitelist: /\.css$/
   }),
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development '),
       'process.env.VUE_ENV': '"server"'
     }),
       // 将服务器的整个输出构建为一个单个json文件，文件名称默认为vue-ssr-server-bundle.json

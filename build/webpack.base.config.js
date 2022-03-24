@@ -30,7 +30,7 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           compilerOptions: {
-            preserveWhitespace: false
+            preserveWhitespace: false //放弃模板标签之间的空格
           }
         }
       },

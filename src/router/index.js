@@ -10,7 +10,12 @@ export function createRouter() {
             {
                 path: '/',
                 component: () => import("../views/home.vue")
+            },
+            {
+                path: '/test',
+                component: () => import("../views/test.vue")
             }
         ]
     })
 }
+

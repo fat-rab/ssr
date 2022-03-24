@@ -1,6 +1,9 @@
 import {createApp} from './app'
 import Vue from 'vue'
-// 客户端只需要将app关在到DOM上
+import ProgressBar from './components/ProgressBar.vue'
+const bar = Vue.prototype.$bar = new Vue(ProgressBar).$mount()
+document.body.appendChild(bar.$el)
+// 客户端只需要将app挂载到DOM上
 const {app, router, store} = createApp()
 // 客户端挂载之前就应该获取到状态
 if (window.__INITIAL_STATE__) {
@@ -13,7 +16,6 @@ router.onReady(() => {
     // 客户端端等待所需要的数据全部解析之后，在传入数据，渲染视图。好处是可以在数据准备就绪的时候，渲染完整视图。
     // 缺点是如果请求数据过大，用户可能会感觉到卡顿，所以最好添加一个loading指示器
     router.beforeResolve((to, from, next) => {
-
         const matched = router.getMatchedComponents(to)
         const prevMatched = router.getMatchedComponents(from)
 
@@ -25,12 +27,14 @@ router.onReady(() => {
             return next()
         }
         // 这里如果有加载指示器 (loading indicator)，就触发
+        bar.start()
         Promise.all(activated.map((item) => {
             if (item.asyncData) {
                 return item.asyncData({store, route: to})
             }
         })).then(() => {
             // 如果有加载指示器就停止
+            bar.finish()
             next()
         }).catch(() => {
             next()

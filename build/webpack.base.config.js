@@ -11,7 +11,7 @@ module.exports = {
     : '#cheap-module-source-map', // source map 支持(记录编译后代码到原始代码的映射关系)
   output: {
     path: path.resolve(__dirname, '../dist'),
-    publicPath: './',
+    publicPath: '/dist/', // 预渲染需要改为../
     filename: '[name].[chunkhash].js'
   },
   resolve: {

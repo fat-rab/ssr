@@ -1,9 +1,9 @@
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const base = require('./webpack.base.config')
-const PrerenderSPAPlugin = require('prerender-spa-plugin') //预渲染
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path')
+// const PrerenderSPAPlugin = require('prerender-spa-plugin') //预渲染
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const path = require('path')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
 // 客户端配置和base 配置基本一样
@@ -41,16 +41,16 @@ const config = merge(base, {
     ]
 })
 // 只有在生产环境才需要预渲染
-if (process.env.NODE_ENV === 'production') {
-    config.plugins.push(
-        new HtmlWebpackPlugin({
-            template: 'src/prerender-template.html'
-        }),
-        new PrerenderSPAPlugin({
-            staticDir: path.join(__dirname, '../dist'),
-            routes: ['/about'] //预渲染的路由
-        })
-    )
-}
+// if (process.env.NODE_ENV === 'production') {
+//     config.plugins.push(
+//         new HtmlWebpackPlugin({
+//             template: 'src/prerender-template.html'
+//         }),
+//         new PrerenderSPAPlugin({
+//             staticDir: path.join(__dirname, '../dist'),
+//             routes: ['/about'] //预渲染的路由
+//         })
+//     )
+// }
 
 module.exports = config
